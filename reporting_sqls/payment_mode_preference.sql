@@ -1,0 +1,7 @@
+SELECT
+    payment,
+    COUNT(*)
+FROM
+    SALES_FACT
+GROUP BY payment
+ORDER BY COUNT(*) DESC
