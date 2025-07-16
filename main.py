@@ -65,6 +65,8 @@ if file:
         .merge(branch_dim, on=['branch', 'city'])
     )
     sales_fact['sales_key'] = sales_fact.apply(lambda row: generate_hash_key(row, ['invoice_id']), axis=1)
+    sales_fact['date'] = pd.to_datetime(sales_fact['date'], format="%m/%d/%Y").dt.date
+    sales_fact['time'] = pd.to_datetime(sales_fact['time'], format="%I:%M:%S %p").dt.time
     sales_fact = sales_fact[['sales_key', 'customer_key', 'branch_key', 'invoice_id', 'product_line',
                              'unit_price', 'quantity', 'tax_5%', 'sales', 'date', 'time',
                              'payment', 'cogs', 'gross_margin_percentage', 'gross_income', 'rating']]
